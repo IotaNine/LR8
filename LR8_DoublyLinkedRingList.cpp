@@ -1,7 +1,8 @@
-﻿#include <iostream>
-#include <iomanip>
 #include <cmath>
 #include <ctime>
+#include <iomanip>
+#include <iostream>
+#include <string>
 
 template <typename T>
 struct element
@@ -107,7 +108,7 @@ void Push(List<T>& list, T data, unsigned int index)  //Добавление э�
     {
         element<T>* new_element = new element<T>;
         new_element->next = list.first;
-        for (unsigned int i = 1; i < index; i++) 
+        for (unsigned int i = 1; i < index; i++)
         {
             new_element->next = new_element->next->next;
         }
@@ -255,6 +256,19 @@ void Print(List<T>& list)
     std::cout << "<< End >>" << std::endl << std::endl;
 }
 
+//User type
+struct Region
+{
+    std::string name;
+    unsigned int population;
+};
+
+std::ostream& operator<<(std::ostream& stream, Region& region)
+{
+    std::cout << "Name: " << region.name << std::endl << "Population: " << region.population;
+    return stream;
+}
+
 int main()
 {
     srand(time(NULL));
@@ -284,4 +298,24 @@ int main()
     Print(A);
     Destructor(A);
     Destructor(B);
+
+    Region First, Second, Third;
+    First.name = "Osaka";
+    First.population = 1000;
+    Second.name = "Kioto";
+    Second.population = 2000;
+    Third.name = "Fukuoka";
+    Third.population = 3000;
+
+    List<Region> LOL;
+    Constructor(LOL);
+    PushBack(LOL, Third);
+    PushFront(LOL, First);
+    Push(LOL, Second, 2);
+    Print(LOL);
+    PopFront(LOL);
+    PopBack(LOL);
+    Print(LOL);
+    Destructor(LOL);
+    Print(LOL);
 }
