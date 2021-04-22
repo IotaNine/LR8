@@ -1,8 +1,32 @@
-#include <cmath>
+﻿#include <cmath>
 #include <ctime>
 #include <iomanip>
 #include <iostream>
 #include <string>
+
+struct Region  //user data type
+{
+    std::string name;
+    unsigned int population;
+    bool operator!=(Region& Right)
+    {
+        if (this->population != Right.population)
+        {
+            return 1;
+        }
+        else
+        {
+            return 0;
+        }
+    }
+};
+
+std::ostream& operator<<(std::ostream& stream, Region& region)
+{
+    std::cout << "Name: " << region.name << std::endl;
+    std::cout << "Population: " << region.population;
+    return stream;
+}
 
 template <typename T>
 struct element
@@ -256,19 +280,6 @@ void Print(List<T>& list)
     std::cout << "<< End >>" << std::endl << std::endl;
 }
 
-//User type
-struct Region
-{
-    std::string name;
-    unsigned int population;
-};
-
-std::ostream& operator<<(std::ostream& stream, Region& region)
-{
-    std::cout << "Name: " << region.name << std::endl << "Population: " << region.population;
-    return stream;
-}
-
 int main()
 {
     srand(time(NULL));
@@ -312,6 +323,7 @@ int main()
     PushBack(LOL, Third);
     PushFront(LOL, First);
     Push(LOL, Second, 2);
+    std::cout << "Index of Second: " << GetIndex(LOL, Second) << std::endl;
     Print(LOL);
     PopFront(LOL);
     PopBack(LOL);
