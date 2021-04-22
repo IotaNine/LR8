@@ -4,6 +4,32 @@
 #include <iostream>
 #include <string>
 
+struct Region
+{
+    std::string name;
+    unsigned int population;
+    std::string GetName() { return name; }
+    unsigned int GetPopulation() { return population; }
+    bool operator==(Region& Right)
+    {
+        if (this->population == Right.population)
+        {
+            return 1;
+        }
+        else
+        {
+            return 0;
+        }
+    }
+};
+
+std::ostream& operator<<(std::ostream& stream, Region& region)
+{
+    std::cout << "Name: " << region.name << std::endl;
+    std::cout << "Population: " << region.population << std::endl;
+    return stream;
+}
+
 template <typename T, unsigned int space>
 struct List
 {
@@ -193,19 +219,6 @@ void Print(List<T, space>& list)
     std::cout << "<<End>>" << std::endl;
 }
 
-struct Region
-{
-    std::string name;
-    unsigned int population;
-};
-
-std::ostream& operator<<(std::ostream& stream, Region& region)
-{
-    std::cout << "Name: " << region.name << std::endl;
-    std::cout << "Population: " << region.population << std::endl;
-    return stream;
-}
-
 int main()
 {
     srand(time(NULL));
@@ -243,10 +256,12 @@ int main()
     Constructor(LOL);
     PushBack(LOL, Third);
     Push(LOL, Second, 1);
+    PushBack(LOL, First);
     Print(LOL);
+    std::cout << "Index of Osaka: " << GetIndex(LOL, Second) << std::endl;
     PopFront(LOL);
     PopBack(LOL);
     Print(LOL);
     Destructor(LOL);
     Print(LOL);
-}
+} // Проверит гент индекс для структуры
